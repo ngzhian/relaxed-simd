@@ -15,9 +15,15 @@ capabilities. There are 3 reasons:
 2. Approximate instructions that are underspecified in hardware
 3. Some SIMD instructions penalize particular architecture
 
-See [these
-slides](https://docs.google.com/presentation/d/1Qnx0nbNTRYhMONLuKyygEduCXNOv3xtWODfXfYokx1Y/edit?usp=sharing)
+See these [slides][slides] presented at the [2021-03-16 CG meeting][cgmeeting]
 for more details.
+
+WebAssembly aims to be [portable][portable], the [SIMD proposal][simd] has been
+careful to only include instructions that behave deterministically, independent
+of the underlying hardware. However, there are certain instructions that, if
+specified in this manner, will be too slow to be usable. Relaxed SIMD proposal
+aims to examine these instructions and unlock more performance without losing
+all portability guarantees.
 
 ## Overview
 
@@ -36,3 +42,8 @@ Example of some instructions we would like to add:
 - Approximate reciprocal/reciprocal sqrt
 - Relaxed Swizzle (implementation defined out of bounds behavior)
 - Relaxed Rounding Q-format Multiplication (optional saturation)
+
+[slides]: https://docs.google.com/presentation/d/1Qnx0nbNTRYhMONLuKyygEduCXNOv3xtWODfXfYokx1Y/edit?usp=sharing
+[cgmeeting]: https://github.com/WebAssembly/meetings/blob/master/main/2021/CG-03-16.md
+[portable]: https://webassembly.github.io/spec/core/intro/introduction.html#design-goals
+[simd]: https://github.com/WebAssembly/simd
