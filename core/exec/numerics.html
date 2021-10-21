@@ -89,6 +89,11 @@
 <p>Some operators are <em>non-deterministic</em>, because they can return one of several possible results (such as different <a class="reference internal" href="../syntax/values.html#syntax-nan"><span class="std std-ref">NaN</span></a> values).
 Technically, each operator thus returns a <em>set</em> of allowed values.
 For convenience, deterministic results are expressed as plain values, which are assumed to be identified with a respective singleton set.</p>
+<p>Some operators are <em>relaxed</em>, because the result depends on the underlying
+execution environment (such as hardware support). Each relaxed operator can be
+thought of as a family of deterministic operations that is fixed to one
+particular deterministic operation as determined by the current execution
+environment.</p>
 <p>Some operators are <em>partial</em>, because they are not defined on certain inputs.
 Technically, an empty set of results is returned for these inputs.</p>
 <p>In formal notation, each operator is defined by equational clauses that apply in decreasing order of precedence.
@@ -1279,6 +1284,76 @@ It is not defined for NaNs, infinities, or values for which the result is out of
 \href{../exec/numerics.html#op-reinterpret}{\mathrm{reinterpret}}_{t_1,t_2}(c) &amp;=&amp; \href{../exec/numerics.html#aux-bits}{\mathrm{bits}}_{t_2}^{-1}(\href{../exec/numerics.html#aux-bits}{\mathrm{bits}}_{t_1}(c)) \\
 \end{array}\end{split}\]</div>
 </section>
+</section>
+<section id="relaxed-operations">
+<span id="relaxed-ops"></span><h2>Relaxed operations<a class="headerlink" href="#relaxed-operations" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Below is a draft of concrete definitions for relaxed-simd operations. The
+text description is an informal description of the instructions and are not
+the final text.</p>
+</div>
+<p>Relaxed FMA allows for fused or unfused results:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{&#64;{}lcll}
+relaxed\_fma_N(z_1, z_2, z_3) &amp;=&amp; \{ \href{../exec/numerics.html#op-fadd}{\mathrm{fadd}}_N(z_1, \href{../exec/numerics.html#op-fmul}{\mathrm{fmul}}_N(z_2, z_3), fma_N(z_1, z_2, z_3) \} \\
+fma_N(z_1, z_2, z_3) &amp;=&amp; \href{../exec/numerics.html#op-demote}{\mathrm{demote}}_{2N,N}(\href{../exec/numerics.html#op-fadd}{\mathrm{fadd}}_{2N}(z_1', \href{../exec/numerics.html#op-fmul}{\mathrm{fmul}}_{2N}(z_2', z_3')) &amp; (\mathrel{\mbox{if}} z_i' = \href{../exec/numerics.html#op-promote}{\mathrm{promote}}_{N,2N}(z_i)) \\
+\end{array}\end{split}\]</div>
+<p>Relaxed swizzle lane is a helper for relaxed swizzle. Result is deterministic
+if the signed interpretation of the index is less than 16 (including negative).
+<span class="math notranslate nohighlight">\(j\)</span> is a 8-bit int.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{&#64;{}lcll}
+relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; \{ i[j], i[j] \} &amp; (\mathrel{\mbox{if}} j &lt; 16) \\
+relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; \{ 0, 0 \} &amp; (\mathrel{\mbox{if}} \href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_8(j) &lt; 0) \\
+relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; \{ 0, i[j \mathbin{\mathrm{mod}} n] \} &amp; (\mathrel{\mbox{otherwise}}) \\
+\end{array}\end{split}\]</div>
+<p>Relaxed truncate converts float to int, NaN and out of range values are
+hardware dependent, returns either 0 or top bit set.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{&#64;{}lcll}
+relaxed\_trunc^u_{M,N}(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; \{ 0, 2^{N-1} \} \\
+relaxed\_trunc^u_{M,N}(\pm \infty) &amp;=&amp; \{ 0, 2^{N-1} \} \\
+relaxed\_trunc^u_{M,N}(\pm q) &amp;=&amp; \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q)  &amp; (\mathrel{\mbox{if}} -1 &lt; \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q) &lt; 2^N) \\
+relaxed\_trunc^u_{M,N}(\pm q) &amp;=&amp; \{ 0, 2^{N-1} \} &amp; (\mathrel{\mbox{otherwise}}) \\
+\end{array}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{&#64;{}lcll}
+relaxed\_trunc^s_{M,N}(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; \{ 0, 2^{N-1} \} \\
+relaxed\_trunc^s_{M,N}(\pm \infty) &amp;=&amp; \{ 0, 2^{N-1} \} \\
+relaxed\_trunc^s_{M,N}(\pm q) &amp;=&amp; \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q) &amp; (\mathrel{\mbox{if}} -2^{N-1} - 1 &lt; \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q) &lt; 2^{N-1}) \\
+relaxed\_trunc^s_{M,N}(\pm q) &amp;=&amp; \{ 0, 2^{N-1} \} &amp; (\mathrel{\mbox{otherwise}}) \\
+\end{array}\end{split}\]</div>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>current codegen of unsigned relaxed trunc might not conform to the above</p>
+</div>
+<p>Relaxed lane select is deterministic where all bits are set or unset in the
+mask. Otherwise depending on hardware, either only the top bit is examined, or
+all bits are examined (becomes a bitselect).</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{&#64;{}lcll}
+relaxed\_laneselect\_lane_N(i_1, i_2, 2^N-1) &amp;=&amp; \{ i_1, i_1 \} \\
+relaxed\_laneselect\_lane_N(i_1, i_2, 0) &amp;=&amp; \{ i_2, i_2 \} \\
+relaxed\_laneselect\_lane_N(i_1, i_2, i_3) &amp;=&amp; \{ ibitselect_N(i_1, i_2, i_3), i_1 \} &amp; (\mathrel{\mbox{if}} \href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_N(i_3) &lt; 0) \\
+relaxed\_laneselect\_lane_N(i_1, i_2, i_3) &amp;=&amp; \{ ibitselect_N(i_1, i_2, i_3), i_2 \} &amp; (\mathrel{\mbox{otherwise}}) \\
+\end{array}\end{split}\]</div>
+<p>Relaxed min and max differs from min and max when inputs are NaNs or different
+signs of 0. Implementation can choose to return the second operand.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{&#64;{}lcll}
+relaxed\_min_N(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2) &amp;=&amp; \{ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2 \} \\
+relaxed\_min_N(z_1, \pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; \{ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n) \} \\
+relaxed\_min_N(\pm 0, \mp 0) &amp;=&amp; \{ -0 ,\mp 0 \} \\
+relaxed\_min_N(z_1, z_2) &amp;=&amp; \href{../exec/numerics.html#op-fmin}{\mathrm{fmin}}_N(z_1, z_2) &amp; (\mathrel{\mbox{otherwise}}) \\
+\end{array}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{&#64;{}lcll}
+relaxed\_max_N(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2) &amp;=&amp; \{ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2 \} \\
+relaxed\_max_N(z_1, \pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; \{ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n) \} \\
+relaxed\_max_N(\pm 0, \mp 0) &amp;=&amp; \{ +0 ,\mp 0 \} \\
+relaxed\_max_N(z_1, z_2) &amp;=&amp; \href{../exec/numerics.html#op-fmax}{\mathrm{fmax}}_N(z_1, z_2) &amp; (\mathrel{\mbox{otherwise}}) \\
+\end{array}\end{split}\]</div>
 </section>
 </section>
 
