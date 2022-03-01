@@ -1544,20 +1544,20 @@ It is not defined for NaNs, infinities, or values for which the result is out of
 \end{array}\]</div>
 </section>
 </section>
-<section id="relaxed-operations">
-<span id="relaxed-ops"></span><h2>Relaxed operations<a class="headerlink" href="#relaxed-operations" title="Permalink to this headline">¶</a></h2>
+<section id="relaxed-operators">
+<span id="relaxed-ops"></span><h2>Relaxed operators<a class="headerlink" href="#relaxed-operators" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>This paragraph should go to the top of this document, but for ease of
 reading, put it together with the description of all the relaxed operations
 here.</p>
 </div>
-<p>Some operators are <em>host-dependent</em>, because the set of possible results may
-depend on properties of the host environment (such as hardware).  Technically,
-each such operator produces a fixed-size <em>list of sets</em> of allowed values.  For
-each execution of the operator in the same environment, only values from the
-set at the same position in the list are returned, i.e., each environment
-globally chooses a fixed projection for each operator.</p>
+<p>The result of <em>relaxed</em> operators are <em>host-dependent</em>, because the set of
+possible results may depend on properties of the host environment (such as
+hardware). Technically, each such operator produces a fixed-size <em>list of sets</em>
+of allowed values.  For each execution of the operator in the same environment,
+only values from the set at the same position in the list are returned, i.e.,
+each environment globally chooses a fixed projection for each operator.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Each operator can be thought of as a family of operations that is fixed to
