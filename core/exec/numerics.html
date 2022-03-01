@@ -1584,7 +1584,7 @@ if the signed interpretation of the index is less than 16 (including negative).
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}lcll}
 relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; [ i[j], i[j] ] &amp; (\mathrel{\mbox{if}} j &lt; 16) \\
-relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; [ 0, 0 ] &amp; (\mathrel{\mbox{if}} \href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_8(j) &lt; 0) \\
+relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; 0 &amp; (\mathrel{\mbox{if}} \href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_8(j) &lt; 0) \\
 relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; [ 0, i[j \mathbin{\mathrm{mod}} n] ] &amp; (\mathrel{\mbox{otherwise}}) \\
 \\
 relaxed\_swizzle(a^n, s^n) &amp;=&amp; rsl_0 \dots rsl_{n-1} \\
@@ -1596,14 +1596,14 @@ hardware dependent, returns either 0 or top bit set.</p>
 \[\begin{split}\begin{array}{&#64;{}lcll}
 relaxed\_trunc^u_{M,N}(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; [ 0, 2^{N-1} ] \\
 relaxed\_trunc^u_{M,N}(\pm \infty) &amp;=&amp; [ 0, 2^{N-1} ] \\
-relaxed\_trunc^u_{M,N}(\pm q) &amp;=&amp; [ \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q), \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q) ]  &amp; (\mathrel{\mbox{if}} -1 &lt; \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q) &lt; 2^N) \\
+relaxed\_trunc^u_{M,N}(\pm q) &amp;=&amp; \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q)  &amp; (\mathrel{\mbox{if}} -1 &lt; \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q) &lt; 2^N) \\
 relaxed\_trunc^u_{M,N}(\pm q) &amp;=&amp; [ 0, 2^{N-1} ] &amp; (\mathrel{\mbox{otherwise}}) \\
 \end{array}\end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}lcll}
 relaxed\_trunc^s_{M,N}(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; [ 0, 2^{N-1} ] \\
 relaxed\_trunc^s_{M,N}(\pm \infty) &amp;=&amp; [ 0, 2^{N-1} ] \\
-relaxed\_trunc^s_{M,N}(\pm q) &amp;=&amp; [\href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q), \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q) ] &amp; (\mathrel{\mbox{if}} -2^{N-1} - 1 &lt; \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q) &lt; 2^{N-1}) \\
+relaxed\_trunc^s_{M,N}(\pm q) &amp;=&amp; \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q) &amp; (\mathrel{\mbox{if}} -2^{N-1} - 1 &lt; \href{../exec/numerics.html#aux-trunc}{\mathrm{trunc}}(\pm q) &lt; 2^{N-1}) \\
 relaxed\_trunc^s_{M,N}(\pm q) &amp;=&amp; [ 0, 2^{N-1} ] &amp; (\mathrel{\mbox{otherwise}}) \\
 \end{array}\end{split}\]</div>
 <div class="admonition-todo admonition" id="id3">
@@ -1631,17 +1631,17 @@ signs of 0. Implementation can choose to return the second operand.</p>
 </div>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}lcll}
-relaxed\_min_N(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2) &amp;=&amp; [ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2, z_2 ] \\
-relaxed\_min_N(z_1, \pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; [ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_1 ] \\
-relaxed\_min_N(\pm 0, \mp 0) &amp;=&amp; [ -0 ,\mp 0, -0 ] \\
-relaxed\_min_N(z_1, z_2) &amp;=&amp; [ \href{../exec/numerics.html#op-fmin}{\mathrm{fmin}}_N(z_1, z_2), \href{../exec/numerics.html#op-fmin}{\mathrm{fmin}}_N(z_1, z_2) ] &amp; (\mathrel{\mbox{otherwise}}) \\
+relaxed\_min_N(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2) &amp;=&amp; [ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2, z_2 ] \\
+relaxed\_min_N(z_1, \pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; [ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_1, \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_1 ] \\
+relaxed\_min_N(\pm 0, \mp 0) &amp;=&amp; [ -0, \pm 0, \mp 0, -0 ] \\
+relaxed\_min_N(z_1, z_2) &amp;=&amp; \href{../exec/numerics.html#op-fmin}{\mathrm{fmin}}_N(z_1, z_2) &amp; (\mathrel{\mbox{otherwise}}) \\
 \end{array}\end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}lcll}
-relaxed\_max_N(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2) &amp;=&amp; [ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2, z_2 ] \\
-relaxed\_max_N(z_1, \pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; [ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_1 ] \\
-relaxed\_max_N(\pm 0, \mp 0) &amp;=&amp; [ +0 ,\mp 0, +0 ] \\
-relaxed\_max_N(z_1, z_2) &amp;=&amp; [ \href{../exec/numerics.html#op-fmax}{\mathrm{fmax}}_N(z_1, z_2), \href{../exec/numerics.html#op-fmax}{\mathrm{fmax}}_N(z_1, z_2) ] &amp; (\mathrel{\mbox{otherwise}}) \\
+relaxed\_max_N(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2) &amp;=&amp; [ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2, z_2 ] \\
+relaxed\_max_N(z_1, \pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; [ \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_1, \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_1 ] \\
+relaxed\_max_N(\pm 0, \mp 0) &amp;=&amp; [ +0, \pm 0, \mp 0, +0 ] \\
+relaxed\_max_N(z_1, z_2) &amp;=&amp; \href{../exec/numerics.html#op-fmax}{\mathrm{fmax}}_N(z_1, z_2) &amp; (\mathrel{\mbox{otherwise}}) \\
 \end{array}\end{split}\]</div>
 </section>
 </section>
