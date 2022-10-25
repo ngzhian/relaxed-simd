@@ -1570,14 +1570,14 @@ itself can still be non-deterministic or partial.</p>
 text description is an informal description of the instructions and are not
 the final text.</p>
 </div>
-<p>Relaxed Fused Multiply Add (FMA) and Relaxed Fused Negative Multiply Add (fnma)
+<p>Relaxed Multiply Add (madd) and Relaxed Negative Multiply Add (nmadd)
 allows for fused or unfused results. <span class="math notranslate nohighlight">\(fma\)</span> is defined by <a class="reference external" href="https://ieeexplore.ieee.org/document/8766229">IEEE 754-2019</a>
 (Section 5.4.1) as <em>fusedMultiplyAdd</em>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}lcll}
-relaxed\_fma_N(z_1, z_2, z_3) &amp;=&amp; [ \href{../exec/numerics.html#op-fadd}{\mathrm{fadd}}_N(\href{../exec/numerics.html#op-fmul}{\mathrm{fmul}}_N(z_1, z_2), z_3), fma_N(z_1, z_2, z_3) ] \\
+relaxed\_madd_N(z_1, z_2, z_3) &amp;=&amp; [ \href{../exec/numerics.html#op-fadd}{\mathrm{fadd}}_N(\href{../exec/numerics.html#op-fmul}{\mathrm{fmul}}_N(z_1, z_2), z_3), fma_N(z_1, z_2, z_3) ] \\
 \\
-relaxed\_fnma_N(z_1, z_2, z_3) &amp;=&amp; relaxed\_fma_N(-z_1, -z_2, z_3) \\
+relaxed\_fnma_N(z_1, z_2, z_3) &amp;=&amp; relaxed\_madd_N(-z_1, z_2, z_3) \\
 \end{array}\end{split}\]</div>
 <p>Relaxed swizzle lane is a helper for relaxed swizzle. Result is deterministic
 if the signed interpretation of the index is less than 16 (including negative).
