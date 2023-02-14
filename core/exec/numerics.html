@@ -1573,7 +1573,7 @@ defined by <a class="reference external" href="https://ieeexplore.ieee.org/docum
 </section>
 <section id="xref-exec-numerics-op-frnmadd-mathrm-frelaxed-nmadd-n-z-1-z-2-z-3">
 <span id="op-frnmadd"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-frnmadd}{\mathrm{frelaxed\_nmadd}}_N(z_1, z_2, z_3)\)</span><a class="headerlink" href="#xref-exec-numerics-op-frnmadd-mathrm-frelaxed-nmadd-n-z-1-z-2-z-3" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed Negative Multiply Add (nmadd) allows for fused or unfused results.</p>
+<p>Relaxed negative multiply-add allows for fused or unfused results.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
 &amp; \href{../exec/numerics.html#op-frnmadd}{\mathrm{frelaxed\_nmadd}}_N(z_1, z_2, z_3) &amp;=&amp; \href{../exec/numerics.html#op-frmaddd}{\mathrm{frelaxed\_madd}}_N(-z_1, z_2, z_3) \\
@@ -1582,7 +1582,7 @@ defined by <a class="reference external" href="https://ieeexplore.ieee.org/docum
 <section id="xref-exec-numerics-op-rswizzle-mathrm-relaxed-swizzle-a-n-s-n">
 <span id="op-rswizzle"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-rswizzle}{\mathrm{relaxed\_swizzle}}(a^n, s^n)\)</span><a class="headerlink" href="#xref-exec-numerics-op-rswizzle-mathrm-relaxed-swizzle-a-n-s-n" title="Permalink to this heading">¶</a></h3>
 <p>Relaxed swizzle lane is deterministic
-if the signed interpretation of the index is less than 16 (including negative).
+if the signed interpretation of the index is less than 16 (including negative values).
 <span class="math notranslate nohighlight">\(j\)</span> is a 8-bit int.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
@@ -1609,8 +1609,8 @@ hardware dependent.</p>
 </section>
 <section id="xref-exec-numerics-op-rtrunc-mathrm-relaxed-trunc-s-m-n-z">
 <span id="op-rtrunc-s"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-rtrunc}{\mathrm{relaxed\_trunc}}^s_{M,N}(z)\)</span><a class="headerlink" href="#xref-exec-numerics-op-rtrunc-mathrm-relaxed-trunc-s-m-n-z" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed truncate converts float to int, NaN and out of range values are
-hardware dependent.</p>
+<p>Relaxed signed truncation converts floating point numbers to integers.
+The result for NaN’s and out-of-range values is host-dependent.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
 \def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-rtrunc}{\mathrm{relaxed\_trunc}}^s_{M,N}(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; [ 0, -2^{N-1} ] \\
@@ -1651,9 +1651,8 @@ when either input is a NaN.</p>
 </section>
 <section id="xref-exec-numerics-op-frmax-mathrm-frelaxed-max-n-z-1-z-2">
 <span id="op-frmax"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-frmax}{\mathrm{frelaxed\_max}}_N(z_1, z_2)\)</span><a class="headerlink" href="#xref-exec-numerics-op-frmax-mathrm-frelaxed-max-n-z-1-z-2" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed max differs from max when inputs are NaNs or different
-signs of 0. It allows for implementation to return the first or second input
-when either input is a NaN.</p>
+<p>Relaxed maximum differs from regular maximum when inputs are NaN’s or zeroes with different signs.
+It allows for implementations to return the first or second input when either input is a NaN.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
 \def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-frmax}{\mathrm{frelaxed\_max}}_N(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2) &amp;=&amp; [ \href{../exec/numerics.html#aux-nans}{\mathrm{nans}}_N\{\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2\}, \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2, z_2 ] \\
@@ -1672,7 +1671,7 @@ when either input is a NaN.</p>
 </section>
 <section id="xref-exec-numerics-op-ridotmul-mathrm-relaxed-dot-mul-m-n-i-1-i-2">
 <span id="op-ridotmul"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-ridotmul}{\mathrm{relaxed\_dot\_mul}}_{M,N}(i_1, i_2)\)</span><a class="headerlink" href="#xref-exec-numerics-op-ridotmul-mathrm-relaxed-dot-mul-m-n-i-1-i-2" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed integer dot product differs from integer dot product when the elements of the input have top bit set.</p>
+<p>Relaxed integer dot product differs from regular integer dot product when the elements of the input have their most significant bit set.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
 \def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-ridotmul}{\mathrm{relaxed\_dot\_mul}}_{M,N}(i_1, i_2) &amp;=&amp; [ \href{../exec/numerics.html#op-imul}{\mathrm{imul}}_N(\href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_M(i_1), i_2), \href{../exec/numerics.html#op-imul}{\mathrm{imul}}_N(\href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_M(i_1), \href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_M(i_2)) ] \\
