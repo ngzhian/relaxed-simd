@@ -1563,7 +1563,7 @@ itself can still be non-deterministic or partial.</p>
 </div>
 <section id="xref-exec-numerics-op-frmaddd-mathrm-frelaxed-madd-n-z-1-z-2-z-3">
 <span id="op-frmadd"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-frmaddd}{\mathrm{frelaxed\_madd}}_N(z_1, z_2, z_3)\)</span><a class="headerlink" href="#xref-exec-numerics-op-frmaddd-mathrm-frelaxed-madd-n-z-1-z-2-z-3" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed Multiply Add (madd) allows for fused or unfused results. <span class="math notranslate nohighlight">\(fma\)</span> is
+<p>Relaxed multiply-add (madd) allows for fused or unfused results. The function <span class="math notranslate nohighlight">\(fma\)</span> is
 defined by <a class="reference external" href="https://ieeexplore.ieee.org/document/8766229">IEEE 754-2019</a> (Section 5.4.1) as <em>fusedMultiplyAdd</em>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
@@ -1591,14 +1591,14 @@ if the signed interpretation of the index is less than 16 (including negative va
 \def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; [ 0, i[j \mathbin{\mathrm{mod}} n] ] &amp; (\mathrel{\mbox{otherwise}}) \\
 &amp; relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; 0 &amp; (\mathrel{\mbox{otherwise}}) \\
 \\
-&amp; \href{../exec/numerics.html#op-rswizzle}{\mathrm{relaxed\_swizzle}}(a^n, s^n) &amp;=&amp; rsl_0 \dots rsl_{n-1} \\
-&amp; \qquad \mathrel{\mbox{where}} rsl_i &amp;=&amp; relaxed\_swizzle\_lane(a^n, s^n[i])
+&amp; \href{../exec/numerics.html#op-rswizzle}{\mathrm{relaxed\_swizzle}}(a^n, s^n) &amp;=&amp; \mathit{rsl}_0 \dots \mathit{rsl}_{n-1} \\
+&amp; \qquad \mathrel{\mbox{where}} \mathit{rsl}_i &amp;=&amp; relaxed\_swizzle\_lane(a^n, s^n[i])
 \end{array}\end{split}\]</div>
 </section>
 <section id="xref-exec-numerics-op-rtrunc-mathrm-relaxed-trunc-u-m-n-z">
 <span id="op-rtrunc-u"></span><span id="op-rtrunc"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-rtrunc}{\mathrm{relaxed\_trunc}}^u_{M,N}(z)\)</span><a class="headerlink" href="#xref-exec-numerics-op-rtrunc-mathrm-relaxed-trunc-u-m-n-z" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed truncate converts float to int, NaN and out of range values are
-hardware dependent.</p>
+<p>Relaxed unsigned truncation converts floating point numbers to integers.
+The result for NaN’s and out-of-range values is host-dependent.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
 \def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-rtrunc}{\mathrm{relaxed\_trunc}}^u_{M,N}(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n)) &amp;=&amp; [ 0, 2^{N}-1 ] \\
@@ -1621,9 +1621,9 @@ The result for NaN’s and out-of-range values is host-dependent.</p>
 </section>
 <section id="xref-exec-numerics-op-rlaneselect-mathrm-relaxed-laneselect-b-a-n-b-n-c-n">
 <span id="op-rlaneselect"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-rlaneselect}{\mathrm{relaxed\_laneselect}}_B(a^n, b^n, c^n)\)</span><a class="headerlink" href="#xref-exec-numerics-op-rlaneselect-mathrm-relaxed-laneselect-b-a-n-b-n-c-n" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed lane select is deterministic where all bits are set or unset in the
-mask. Otherwise depending on hardware, either only the top bit is examined, or
-all bits are examined (becomes a bitselect).</p>
+<p>Relaxed lane selection is deterministic when all bits are set or unset in the
+mask. Otherwise depending on the host, either only the top bit is examined, or
+all bits are examined (i.e. it becomes a bit select).</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
 &amp; relaxed\_lane_N(i_1, i_2, 2^N-1) &amp;=&amp; i_1 \\
@@ -1638,9 +1638,8 @@ all bits are examined (becomes a bitselect).</p>
 </section>
 <section id="xref-exec-numerics-op-frmin-mathrm-frelaxed-min-n-z-1-z-2">
 <span id="op-frmin"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-frmin}{\mathrm{frelaxed\_min}}_N(z_1, z_2)\)</span><a class="headerlink" href="#xref-exec-numerics-op-frmin-mathrm-frelaxed-min-n-z-1-z-2" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed min differs from min when inputs are NaNs or different
-signs of 0. It allows for implementation to return the first or second input
-when either input is a NaN.</p>
+<p>Relaxed minimum differs from regular minimum when inputs are NaN’s or zeroes with different signs.
+It allows for implementation to return the first or second input when either input is a NaN.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
 \def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-frmin}{\mathrm{frelaxed\_min}}_N(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2) &amp;=&amp; [ \href{../exec/numerics.html#aux-nans}{\mathrm{nans}}_N\{\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2\}, \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2, z_2 ] \\
