@@ -1651,9 +1651,8 @@ when either input is a NaN.</p>
 </section>
 <section id="xref-exec-numerics-op-frmax-mathrm-frelaxed-max-n-z-1-z-2">
 <span id="op-frmax"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-frmax}{\mathrm{frelaxed\_max}}_N(z_1, z_2)\)</span><a class="headerlink" href="#xref-exec-numerics-op-frmax-mathrm-frelaxed-max-n-z-1-z-2" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed max differs from max when inputs are NaNs or different
-signs of 0. It allows for implementation to return the first or second input
-when either input is a NaN.</p>
+<p>Relaxed maximum differs from regular maximum when inputs are NaN’s or zeroes with different signs.
+It allows for implementations to return the first or second input when either input is a NaN.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
 \def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-frmax}{\mathrm{frelaxed\_max}}_N(\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2) &amp;=&amp; [ \href{../exec/numerics.html#aux-nans}{\mathrm{nans}}_N\{\pm \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2\}, \href{../syntax/values.html#syntax-float}{\mathsf{nan}}(n), z_2, z_2 ] \\
