@@ -1568,7 +1568,7 @@ defined by <a class="reference external" href="https://ieeexplore.ieee.org/docum
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
 \def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-frmaddd}{\mathrm{frelaxed\_madd}}_N(z_1, z_2, z_3) &amp;=&amp; [ \href{../exec/numerics.html#op-fadd}{\mathrm{fadd}}_N(\href{../exec/numerics.html#op-fmul}{\mathrm{fmul}}_N(z_1, z_2), z_3), fma_N(z_1, z_2, z_3) ] \\
-&amp; \href{../exec/numerics.html#op-frmaddd}{\mathrm{frelaxed\_madd}}_N(z_1, z_2, z_3) &amp;=&amp; \href{../exec/numerics.html#op-fadd}{\mathrm{fadd}}_N(\href{../exec/numerics.html#op-fmul}{\mathrm{fmul}}_N(z_1, z_2), z_3) \\
+&amp; \href{../exec/numerics.html#op-frmaddd}{\mathrm{frelaxed\_madd}}_N(z_1, z_2, z_3) &amp;=&amp; fma_N(z_1, z_2, z_3) \\
 \end{array}\end{split}\]</div>
 </section>
 <section id="xref-exec-numerics-op-frnmadd-mathrm-frelaxed-nmadd-n-z-1-z-2-z-3">
@@ -1586,13 +1586,13 @@ if the signed interpretation of the index is less than 16 (including negative va
 <span class="math notranslate nohighlight">\(j\)</span> is a 8-bit int.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
-&amp; relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; i[j] &amp; (\mathrel{\mbox{if}} j &lt; 16) \\
-&amp; relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; 0 &amp; (\mathrel{\mbox{if}} \href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_8(j) &lt; 0) \\
-\def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; [ 0, i[j \mathbin{\mathrm{mod}} n] ] &amp; (\mathrel{\mbox{otherwise}}) \\
-&amp; relaxed\_swizzle\_lane(i^n, j) &amp;=&amp; 0 &amp; (\mathrel{\mbox{otherwise}}) \\
+&amp; \href{../exec/numerics.html#op-rswizzle-lane}{\mathrm{relaxed\_swizzle\_lane}}(i^n, j) &amp;=&amp; i[j] &amp; (\mathrel{\mbox{if}} j &lt; 16) \\
+&amp; \href{../exec/numerics.html#op-rswizzle-lane}{\mathrm{relaxed\_swizzle\_lane}}(i^n, j) &amp;=&amp; 0 &amp; (\mathrel{\mbox{if}} \href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_8(j) &lt; 0) \\
+\def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-rswizzle-lane}{\mathrm{relaxed\_swizzle\_lane}}(i^n, j) &amp;=&amp; [ 0, i[j \mathbin{\mathrm{mod}} n] ] &amp; (\mathrel{\mbox{otherwise}}) \\
+&amp; \href{../exec/numerics.html#op-rswizzle-lane}{\mathrm{relaxed\_swizzle\_lane}}(i^n, j) &amp;=&amp; 0 &amp; (\mathrel{\mbox{otherwise}}) \\
 \\
 &amp; \href{../exec/numerics.html#op-rswizzle}{\mathrm{relaxed\_swizzle}}(a^n, s^n) &amp;=&amp; \mathit{rsl}_0 \dots \mathit{rsl}_{n-1} \\
-&amp; \qquad \mathrel{\mbox{where}} \mathit{rsl}_i &amp;=&amp; relaxed\_swizzle\_lane(a^n, s^n[i])
+&amp; \qquad \mathrel{\mbox{where}} \mathit{rsl}_i &amp;=&amp; \href{../exec/numerics.html#op-rswizzle-lane}{\mathrm{relaxed\_swizzle\_lane}}(a^n, s^n[i])
 \end{array}\end{split}\]</div>
 </section>
 <section id="xref-exec-numerics-op-rtrunc-mathrm-relaxed-trunc-u-m-n-z">
