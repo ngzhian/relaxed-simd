@@ -3128,8 +3128,8 @@
 <tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-valtype}{\mathsf{i8x16}}.\href{../syntax/instructions.html#syntax-instr-vec}{\mathsf{relaxed\_swizzle}}\)</span></p></td>
 <td><p><span class="math notranslate nohighlight">\(\def\mathdef1151#1{\mathtt{0x#1}}\mathdef1151{FD}~~\def\mathdef1152#1{\mathtt{0x#1}}\mathdef1152{80}~~\def\mathdef1153#1{\mathtt{0x#1}}\mathdef1153{02}\)</span></p></td>
 <td><p><span class="math notranslate nohighlight">\([\href{../syntax/types.html#syntax-valtype}{\mathsf{v128}}~\href{../syntax/types.html#syntax-valtype}{\mathsf{v128}}] \href{../syntax/types.html#syntax-functype}{\rightarrow} [\href{../syntax/types.html#syntax-valtype}{\mathsf{v128}}]\)</span></p></td>
-<td><p><a class="reference internal" href="../valid/instructions.html#valid-vec-rswizzle"><span class="std std-ref">validation</span></a></p></td>
-<td><p><a class="reference internal" href="../exec/instructions.html#exec-vec-rswizzle"><span class="std std-ref">execution</span></a>, <a class="reference internal" href="../exec/numerics.html#op-rswizzle"><span class="std std-ref">operator</span></a></p></td>
+<td><p><a class="reference internal" href="../valid/instructions.html#valid-relaxed-swizzle"><span class="std std-ref">validation</span></a></p></td>
+<td><p><a class="reference internal" href="../exec/instructions.html#exec-relaxed-swizzle"><span class="std std-ref">execution</span></a>, <a class="reference internal" href="../exec/numerics.html#op-rswizzle"><span class="std std-ref">operator</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-valtype}{\mathsf{i32x4}}.\href{../syntax/instructions.html#syntax-instr-vec}{\mathsf{relaxed\_trunc}}\mathsf{\_f32x4\_s}\)</span></p></td>
 <td><p><span class="math notranslate nohighlight">\(\def\mathdef1154#1{\mathtt{0x#1}}\mathdef1154{FD}~~\def\mathdef1155#1{\mathtt{0x#1}}\mathdef1155{81}~~\def\mathdef1156#1{\mathtt{0x#1}}\mathdef1156{02}\)</span></p></td>
@@ -3236,14 +3236,14 @@
 <tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-valtype}{\mathsf{i16x8}}.\href{../syntax/instructions.html#syntax-instr-vec}{\mathsf{relaxed\_dot}}\mathsf{\_i8x16\_i7x16\_s}\)</span></p></td>
 <td><p><span class="math notranslate nohighlight">\(\def\mathdef1205#1{\mathtt{0x#1}}\mathdef1205{FD}~~\def\mathdef1206#1{\mathtt{0x#1}}\mathdef1206{92}~~\def\mathdef1207#1{\mathtt{0x#1}}\mathdef1207{02}\)</span></p></td>
 <td><p><span class="math notranslate nohighlight">\([\href{../syntax/types.html#syntax-valtype}{\mathsf{v128}}~\href{../syntax/types.html#syntax-valtype}{\mathsf{v128}}] \href{../syntax/types.html#syntax-functype}{\rightarrow} [\href{../syntax/types.html#syntax-valtype}{\mathsf{v128}}]\)</span></p></td>
-<td><p><a class="reference internal" href="../valid/instructions.html#valid-vec-rdot"><span class="std std-ref">validation</span></a></p></td>
-<td><p><a class="reference internal" href="../exec/instructions.html#exec-vec-rdot"><span class="std std-ref">execution</span></a>, <a class="reference internal" href="../exec/numerics.html#op-ridotmul"><span class="std std-ref">operator</span></a></p></td>
+<td><p><a class="reference internal" href="../valid/instructions.html#valid-relaxed-dot"><span class="std std-ref">validation</span></a></p></td>
+<td><p><a class="reference internal" href="../exec/instructions.html#exec-relaxed-dot"><span class="std std-ref">execution</span></a>, <a class="reference internal" href="../exec/numerics.html#op-ridotmul"><span class="std std-ref">operator</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-valtype}{\mathsf{i32x4}}.\href{../syntax/instructions.html#syntax-instr-vec}{\mathsf{relaxed\_dot}}\mathsf{\_i8x16\_i7x16\_add\_s}\)</span></p></td>
 <td><p><span class="math notranslate nohighlight">\(\def\mathdef1208#1{\mathtt{0x#1}}\mathdef1208{FD}~~\def\mathdef1209#1{\mathtt{0x#1}}\mathdef1209{93}~~\def\mathdef1210#1{\mathtt{0x#1}}\mathdef1210{02}\)</span></p></td>
 <td><p><span class="math notranslate nohighlight">\([\href{../syntax/types.html#syntax-valtype}{\mathsf{v128}}~\href{../syntax/types.html#syntax-valtype}{\mathsf{v128}}~\href{../syntax/types.html#syntax-valtype}{\mathsf{v128}}] \href{../syntax/types.html#syntax-functype}{\rightarrow} [\href{../syntax/types.html#syntax-valtype}{\mathsf{v128}}]\)</span></p></td>
-<td><p><a class="reference internal" href="../valid/instructions.html#valid-vec-rdot"><span class="std std-ref">validation</span></a></p></td>
-<td><p><a class="reference internal" href="../exec/instructions.html#exec-vec-rdot"><span class="std std-ref">execution</span></a>, <a class="reference internal" href="../exec/numerics.html#op-ridotmul"><span class="std std-ref">operator</span></a></p></td>
+<td><p><a class="reference internal" href="../valid/instructions.html#valid-relaxed-dot"><span class="std std-ref">validation</span></a></p></td>
+<td><p><a class="reference internal" href="../exec/instructions.html#exec-relaxed-dot"><span class="std std-ref">execution</span></a>, <a class="reference internal" href="../exec/numerics.html#op-ridotmul"><span class="std std-ref">operator</span></a></p></td>
 </tr>
 </tbody>
 </table>
