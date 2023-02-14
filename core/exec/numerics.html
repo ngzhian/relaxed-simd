@@ -1672,7 +1672,7 @@ when either input is a NaN.</p>
 </section>
 <section id="xref-exec-numerics-op-ridotmul-mathrm-relaxed-dot-mul-m-n-i-1-i-2">
 <span id="op-ridotmul"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-ridotmul}{\mathrm{relaxed\_dot\_mul}}_{M,N}(i_1, i_2)\)</span><a class="headerlink" href="#xref-exec-numerics-op-ridotmul-mathrm-relaxed-dot-mul-m-n-i-1-i-2" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed integer dot product differs from integer dot product when the elements of the input have top bit set.</p>
+<p>Relaxed integer dot product differs from regular integer dot product when the elements of the input have their most significant bit set.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
 \def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-ridotmul}{\mathrm{relaxed\_dot\_mul}}_{M,N}(i_1, i_2) &amp;=&amp; [ \href{../exec/numerics.html#op-imul}{\mathrm{imul}}_N(\href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_M(i_1), i_2), \href{../exec/numerics.html#op-imul}{\mathrm{imul}}_N(\href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_M(i_1), \href{../exec/numerics.html#aux-signed}{\mathrm{signed}}_M(i_2)) ] \\
