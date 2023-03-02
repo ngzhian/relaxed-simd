@@ -1562,13 +1562,15 @@ one particular choice by the execution environment. The fixed operation
 itself can still be non-deterministic or partial.</p>
 </div>
 <section id="xref-exec-numerics-op-relaxed-madd-mathrm-frelaxed-madd-n-z-1-z-2-z-3">
-<span id="op-relaxed-madd"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-relaxed-madd}{\mathrm{frelaxed\_madd}}_N(z_1, z_2, z_3)\)</span><a class="headerlink" href="#xref-exec-numerics-op-relaxed-madd-mathrm-frelaxed-madd-n-z-1-z-2-z-3" title="Permalink to this heading">¶</a></h3>
-<p>Relaxed multiply-add (madd) allows for fused or unfused results. The function <span class="math notranslate nohighlight">\(fma\)</span> is
+<span id="op-fma"></span><span id="op-relaxed-madd"></span><h3><span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-relaxed-madd}{\mathrm{frelaxed\_madd}}_N(z_1, z_2, z_3)\)</span><a class="headerlink" href="#xref-exec-numerics-op-relaxed-madd-mathrm-frelaxed-madd-n-z-1-z-2-z-3" title="Permalink to this heading">¶</a></h3>
+<p>Relaxed multiply-add (madd) allows for fused or unfused results. The function <span class="math notranslate nohighlight">\(\href{../exec/numerics.html#op-fma}{\mathrm{fma}}\)</span> is
 defined by <a class="reference external" href="https://ieeexplore.ieee.org/document/8766229">IEEE 754</a> (Section 5.4.1) as <em>fusedMultiplyAdd</em>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{&#64;{}llcll}
-\def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-relaxed-madd}{\mathrm{frelaxed\_madd}}_N(z_1, z_2, z_3) &amp;=&amp; [ \href{../exec/numerics.html#op-fadd}{\mathrm{fadd}}_N(\href{../exec/numerics.html#op-fmul}{\mathrm{fmul}}_N(z_1, z_2), z_3), fma_N(z_1, z_2, z_3) ] \\
-&amp; \href{../exec/numerics.html#op-relaxed-madd}{\mathrm{frelaxed\_madd}}_N(z_1, z_2, z_3) &amp;=&amp; fma_N(z_1, z_2, z_3) \\
+\def\mathdef2357#1{{^{\small{[!#1]}}}}\mathdef2357{\href{../appendix/profiles.html#profile-deterministic}{\mathrm{DET}}} &amp; \href{../exec/numerics.html#op-relaxed-madd}{\mathrm{frelaxed\_madd}}_N(z_1, z_2, z_3) &amp;=&amp; [ \href{../exec/numerics.html#op-fadd}{\mathrm{fadd}}_N(\href{../exec/numerics.html#op-fmul}{\mathrm{fmul}}_N(z_1, z_2), z_3), \href{../exec/numerics.html#op-fma}{\mathrm{fma}}_N(z_1, z_2, z_3) ] \\
+&amp; \href{../exec/numerics.html#op-relaxed-madd}{\mathrm{frelaxed\_madd}}_N(z_1, z_2, z_3) &amp;=&amp; \href{../exec/numerics.html#op-fma}{\mathrm{fma}}_N(z_1, z_2, z_3) \\
+\\
+&amp; \href{../exec/numerics.html#op-fma}{\mathrm{fma}}_N(z_1, z_2, z_3) &amp;=&amp; \href{../exec/numerics.html#aux-ieee}{\mathrm{float}}_N(z_1 \cdot z_2 + z_3) \\
 \end{array}\end{split}\]</div>
 </section>
 <section id="xref-exec-numerics-op-relaxed-nmadd-mathrm-frelaxed-nmadd-n-z-1-z-2-z-3">
